@@ -1,0 +1,78 @@
+﻿@inject SrvApp sSrvApp
+@inject SrvOpciones sSrvOpciones
+@inject NavigationManager navigationManager
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Gestion de Pedidos</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<nav class="flex-column">
+    @foreach (var datApp in ListaApp)
+    {
+        <div class="nav-item px-3">
+            <div class="container-fluid">
+                <div class="btn-group dropend">
+                    <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" value="@datApp.Cod_aplicacion"
+                    style="background-color: #6f42c1; border-color: #6f42c1; color: white;">
+                        @datApp.Des_aplicacion
+                    </button>
+                    <ul class="dropdown-menu">
+                        @foreach (var dato in ListaOpcion)
+                        {
+                            if (datApp.Cod_aplicacion == dato.Cod_Aplicacion)
+                            {
+                                <li>
+                                    <a class="dropdown-item" style="color: black;" @onclick="(() => CargaForm())">@dato.Des_Opcion</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</nav>
+
+@code {
+    public List<AplicacionCLS> ListaApp { get; set; } = new List<AplicacionCLS>();
+    public List<OpcionesCLS> ListaOpcion { get; set; } = new List<OpcionesCLS>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        ListaApp = await sSrvApp.listarApp();
+        sSrvApp.OnChange += CargaApp;
+
+        ListaOpcion = await sSrvOpciones.ListarOpciones();
+        sSrvOpciones.OnChange += CargaOpcion;
+    }
+
+    public async Task CargaApp()
+    {
+        ListaApp = await sSrvApp.listarApp();
+        StateHasChanged(); await Task.CompletedTask;
+    }
+
+    public async Task CargaOpcion()
+    {
+        ListaOpcion = await sSrvOpciones.ListarOpciones();
+        StateHasChanged(); await Task.CompletedTask;
+    }
+
+    public async Task CargaForm()
+    {
+        await Task.CompletedTask;    
+    }
+
+    private bool collapseNavMenu = true;
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

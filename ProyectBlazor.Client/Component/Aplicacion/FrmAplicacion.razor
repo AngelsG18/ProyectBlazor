@@ -1,0 +1,53 @@
+﻿@* @page "Aplicacion/" *@
+@inject SrvApp sSrvApp;
+
+<EditForm Model="@sAplicacionCLS" OnValidSubmit="@GuardarApp">
+    <DataAnnotationsValidator />
+    <div class="m-3">
+        <label>Ingrese su Codigo</label>
+        <InputText class="form-control" @bind-Value="sAplicacionCLS.Cod_aplicacion" maxlength="5" />
+        <ValidationMessage For="(()=>sAplicacionCLS.Cod_aplicacion)" />
+    </div>
+    <div class="m-3">
+        <label>Ingrese su Descripcion(ESP)</label>
+        <InputTextArea class="form-control" @bind-Value="sAplicacionCLS.Des_aplicacion" />
+        <ValidationMessage For="(()=>sAplicacionCLS.Des_aplicacion)" />
+    </div>
+    <div class="m-3">
+        <label>Ingrese su Descripcion(ING)</label>
+        <InputTextArea class="form-control" @bind-Value="sAplicacionCLS.Des_aplicacion_Eng" />
+        <ValidationMessage For="(()=>sAplicacionCLS.Des_aplicacion_Eng)" />
+    </div>
+    <div class="m-3">
+        <button class="btn btn-outline-primary" type="submit">Guardar</button>
+        <button class="btn btn-outline-secondary" @onclick="(()=>LimpiarApp())" type="button">Limpiar</button>
+    </div>
+
+</EditForm>
+
+@code {
+    public AplicacionCLS sAplicacionCLS { get; set; } = new AplicacionCLS();
+    protected override async Task OnInitializedAsync()
+    {
+        sSrvApp.OnEdit += RecuperaApp;
+    }
+
+    public async Task GuardarApp()
+    {
+        sSrvApp.AgregarApp(sAplicacionCLS);
+        sAplicacionCLS = new AplicacionCLS();
+        await Task.CompletedTask;
+    }
+    public async Task RecuperaApp(AplicacionCLS oAplicacionCLS)
+    {
+        sAplicacionCLS = oAplicacionCLS;
+        StateHasChanged();
+        await Task.CompletedTask;
+    }
+    public async Task LimpiarApp()
+    {
+        sAplicacionCLS = new AplicacionCLS();
+        await Task.CompletedTask;
+    }
+
+}

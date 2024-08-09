@@ -1,0 +1,72 @@
+﻿@inject SrvApp sSrvApp;
+@inject NavigationManager navigationManager
+
+@if (ListaApp == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Descripcion (ESP)</th>
+                <th>Descripcion (ING)</th>
+                <th>Operaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var valor in ListaApp)
+            {
+                <tr>
+                    <td>@valor.Cod_aplicacion</td>
+                    <td>@valor.Des_aplicacion</td>
+                    <td>@valor.Des_aplicacion_Eng</td>
+                    <td>
+                        <button class="btn btn-danger"
+                                @onclick="(()=>EliminarApp(valor.Cod_aplicacion))">
+                            Eliminar
+                        </button>
+                        <button class="btn btn-warning"
+                                @onclick="(()=>EditarApp(valor.Cod_aplicacion))">
+                            Editar
+                        </button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+
+@code {
+    public List<AplicacionCLS> ListaApp { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        ListaApp = await sSrvApp.listarApp();
+        sSrvApp.OnChange += RefrescaGrilla;
+        await Task.CompletedTask;
+    }
+
+    public async Task EliminarApp(string cod_app)
+    {
+        sSrvApp.EliminarApp(cod_app);
+        await Task.CompletedTask;
+    }
+
+    public async Task RefrescaGrilla()
+    {
+        ListaApp = await sSrvApp.listarApp();
+        StateHasChanged();
+        await Task.CompletedTask;
+    }
+
+    public async Task EditarApp(string sAplicacionCLS)
+    {
+        navigationManager.NavigateTo("/App/Edit/" + sAplicacionCLS);
+        // sSrvApp.CargaGrillaEdit(sAplicacionCLS);
+        await Task.CompletedTask;
+    }
+
+}

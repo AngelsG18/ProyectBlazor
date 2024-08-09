@@ -1,0 +1,76 @@
+﻿@inject SrvOpciones oSrvOpciones
+
+@if (ListaOpcion is null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Cod. Opcion</th>
+                <th>Cod. Aplicacion</th>
+                <th>Desc. Opcion</th>
+                <th>Desc. Opcion (ENG)</th>
+                <th>Nivel</th>
+                <th>Cod. Padre</th>
+                <th>Tipo</th>
+                <th>Operacion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var data in ListaOpcion)
+            {
+                <tr>
+                    <td>@data.Cod_Opcion</td>
+                    <td>@data.Cod_Aplicacion</td>
+                    <td>@data.Des_Opcion</td>
+                    <td>@data.Des_Opcion_Eng</td>
+                    <td>@data.Nivel</td>
+                    <td>@data.Cod_Padre</td>
+                    <td>@data.tipo</td>
+                    <td>
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" @onclick="(()=>editar(data))">Editar</button>
+                        <button class="btn btn-danger" @onclick="(()=>eliminar(data.Cod_Opcion))">Eliminar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    public List<OpcionesCLS> ListaOpcion { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ListaOpcion = oSrvOpciones.ListaOpcion;
+        oSrvOpciones.OnChange += refrescaGrilla;
+        await Task.CompletedTask;
+    }
+
+    public async Task refrescaGrilla()
+    {
+        ListaOpcion = oSrvOpciones.ListaOpcion;
+        StateHasChanged();
+        await Task.CompletedTask;
+    }
+    public async Task eliminar(string cod_opcion)
+    {
+        oSrvOpciones.EliminarOpcion(cod_opcion);
+        StateHasChanged();
+        await Task.CompletedTask;
+    }
+
+    public async Task editar(OpcionesCLS opcion)
+    {
+        oSrvOpciones.NotificarGrid(opcion);
+        oSrvOpciones.NotificarTitle("Editar Opcion");
+        StateHasChanged();
+        await Task.CompletedTask;
+    }
+
+
+}

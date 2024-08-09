@@ -1,0 +1,21 @@
+﻿@page "/app"
+
+@inject NavigationManager navigationManager
+
+<PageTitle>Aplicacion</PageTitle>
+<h1>Aplicacion </h1>
+
+<button @onclick="(()=>CargaForm())" class="btn btn-primary">Nuevo</button>
+
+@* <FrmAplicacion/> *@
+<FrmListAplicacion />
+
+@code{
+
+    public async Task CargaForm()
+    {
+        navigationManager.NavigateTo("/App/Nuevo");
+        await Task.CompletedTask;
+    }
+
+}

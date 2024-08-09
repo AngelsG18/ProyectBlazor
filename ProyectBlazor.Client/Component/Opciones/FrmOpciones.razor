@@ -1,0 +1,93 @@
+﻿@inject SrvOpciones oSrvOpciones
+@inject SrvApp oSrvApp
+@inject IJSRuntime JSRuntime
+
+<EditForm Model="@sOpcionesCLS" OnValidSubmit="guardarOpcion">
+
+    <div class="mt-3">
+        <label>Cod. de Opcion</label>
+        <InputText class="form-control" @bind-Value="sOpcionesCLS.Cod_Opcion"/>
+    </div>
+    <div class="mt-3">
+        <label>Cod. Aplicacion</label>
+        <InputText class="form-control" @bind-Value="sOpcionesCLS.Cod_Aplicacion" />
+    </div>
+    <div class="mt-3">
+        <label>Desc. de Opcion</label>
+        <InputText class="form-control" @bind-Value="sOpcionesCLS.Des_Opcion" />
+    </div>
+    <div class="mt-3">
+        <label>Desc. de Opcion (ENG)</label>
+        <InputText class="form-control" @bind-Value="sOpcionesCLS.Des_Opcion_Eng" />
+    </div>
+    <div class="mt-3">
+            <label>Nivel</label>
+            <InputNumber class="form-control" @bind-Value="sOpcionesCLS.Nivel" />
+        </div>
+    <div class="mt-3">
+            <label>Cod. Padre</label>
+            <InputText class="form-control" @bind-Value="sOpcionesCLS.Cod_Padre" />
+        </div>
+    <div class="mt-3">
+            <label>Tipo</label>
+            <InputText class="form-control" @bind-Value="sOpcionesCLS.tipo" />
+        </div>
+    <div class="mt-3">
+        <label>Seleccione la Aplicacion</label>
+        <InputSelect @bind-Value="sOpcionesCLS.Cod_Padre" class="form-control">
+            <option value="cero">Seleccione una Aplicacion</option>
+            @foreach (var data in ListaApp)
+            {
+                <option value="@data.Cod_aplicacion">@data.Des_aplicacion</option>
+            }
+
+        </InputSelect>
+    </div>
+
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" @ref="btn" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+    </div>
+
+</EditForm>
+<script>
+    window.DarClick=function(el){
+        el.click()
+    }
+</script>
+
+@code {
+    public OpcionesCLS sOpcionesCLS { get; set; } = new OpcionesCLS();
+    public ElementReference btn;
+    public List<AplicacionCLS> ListaApp { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        oSrvOpciones.OnEdit += RecuperarCurso;
+        ListaApp = oSrvApp.ListaApp;
+        await Task.CompletedTask;
+    }
+
+    public async Task guardarOpcion()
+    {
+        oSrvOpciones.AgregarOpcion(sOpcionesCLS);
+        sOpcionesCLS = new OpcionesCLS();
+        await JSRuntime.InvokeVoidAsync("DarClick", btn);
+        //await Task.CompletedTask;
+    }
+
+    public async Task RecuperarCurso(OpcionesCLS oOpcionesCls)
+    {
+        sOpcionesCLS = oOpcionesCls;
+        StateHasChanged();
+        await Task.CompletedTask;
+    }
+
+    public async Task Limpiar()
+    {
+        sOpcionesCLS = new OpcionesCLS();
+        await Task.CompletedTask;
+    }
+
+
+}
