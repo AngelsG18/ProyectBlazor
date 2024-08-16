@@ -16,19 +16,17 @@
     {
         <div class="nav-item px-3">
             <div class="container-fluid">
-                <div class="btn-group dropend">
+                <div class="d-grid gap-2 dropend">
                     <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" value="@datApp.Cod_aplicacion"
                     style="background-color: #6f42c1; border-color: #6f42c1; color: white;">
                         @datApp.Des_aplicacion
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="max-height: 200px; overflow-y: auto;">
                         @foreach (var dato in ListaOpcion)
                         {
                             if (datApp.Cod_aplicacion == dato.Cod_Aplicacion)
                             {
-                                <li>
-                                    <button class="btn btn-secondary" style="color: black;" @onclick="(() => CargaForm(dato.Cod_Opcion))">@dato.Des_Opcion</button>
-                                </li>
+                                <li><a class="dropdown-item" style="color: black;" @onclick="(() => CargaForm(dato.Cod_Opcion))">@dato.Des_Opcion</a></li>
                             }
                         }
                     </ul>
@@ -37,11 +35,11 @@
         </div>
     }
 </nav>
-<div class="nav-item px-3">
+@* <div class="nav-item px-3">
     <NavLink class="nav-link" href="App/Nuevo">
         <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
     </NavLink>
-</div>
+</div> *@
 
 
 @code {
