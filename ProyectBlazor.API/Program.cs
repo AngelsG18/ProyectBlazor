@@ -8,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<SeguridadContext>(opcion => {
-    opcion.UseSqlServer("server=DESKTOP-AI9GQRS\\SQLEXPRESS;database=SEGURIDAD;Integrated Security=True;Encrypt=False");
+    //opcion.UseSqlServer("server=DESKTOP-AI9GQRS\\SQLEXPRESS;database=SEGURIDAD;Integrated Security=True;Encrypt=False");
+    opcion.UseSqlServer("server=192.167.10.10;database=SEGURIDAD;User=soporte;Password=soporte;Encrypt=False");
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

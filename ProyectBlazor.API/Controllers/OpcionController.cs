@@ -40,8 +40,8 @@ namespace ProyectBlazor.API.Controllers
                 using (SqlCommand cmd = new SqlCommand("SM_MUESTRA_OPCIONES_PERFIL_EMPRESA", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Cod_Perfil", "0751");
-                    cmd.Parameters.AddWithValue("@Cod_Empresa", "01");
+                    cmd.Parameters.AddWithValue("@Cod_Perfil", "0001");
+                    cmd.Parameters.AddWithValue("@Cod_Empresa", "03");
 
                     conn.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())

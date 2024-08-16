@@ -9,6 +9,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 //Siempre registrar el servicio para poder inyectar al componente (Form) los metodos
 builder.Services.AddScoped<SrvOpciones>();
 builder.Services.AddScoped<SrvApp>();
+builder.Services.AddScoped<SrvSegUser>();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5123/") });
 

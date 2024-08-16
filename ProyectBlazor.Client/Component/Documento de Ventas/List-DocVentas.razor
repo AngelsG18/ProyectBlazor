@@ -1,0 +1,42 @@
+﻿<h1>caraga List</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+            <th>Codigo</th>
+            <th>Usuario</th>
+            <th>Email</th>
+            <th>Windows</th>
+            <th>Estaciones</th>
+            <th>Anexo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var data  in ListSeg_User){
+            <tr>
+                <td>@data.cod_usuario</td>
+                <td>@data.Nom_usuario</td>
+                <td>@data.Email</td>
+                <td>@data.User_Wiundows</td>
+                <td>@data.Estaciones</td>
+                <td>@data.Anexo_Tlf</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+@code {
+    public List<Seg_UserCLS> ListSeg_User { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        return base.OnInitializedAsync();   
+    }
+
+    private async Task CargaList()
+    {
+
+        await Task.CompletedTask;
+    }
+
+
+}

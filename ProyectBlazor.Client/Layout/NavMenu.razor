@@ -27,7 +27,7 @@
                             if (datApp.Cod_aplicacion == dato.Cod_Aplicacion)
                             {
                                 <li>
-                                    <a class="dropdown-item" style="color: black;" @onclick="(() => CargaForm())">@dato.Des_Opcion</a>
+                                    <button class="btn btn-secondary" style="color: black;" @onclick="(() => CargaForm(dato.Cod_Opcion))">@dato.Des_Opcion</button>
                                 </li>
                             }
                         }
@@ -37,6 +37,12 @@
         </div>
     }
 </nav>
+<div class="nav-item px-3">
+    <NavLink class="nav-link" href="App/Nuevo">
+        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
+    </NavLink>
+</div>
+
 
 @code {
     public List<AplicacionCLS> ListaApp { get; set; } = new List<AplicacionCLS>();
@@ -63,8 +69,10 @@
         StateHasChanged(); await Task.CompletedTask;
     }
 
-    public async Task CargaForm()
+    public async Task CargaForm(string cod_opcion)
     {
+        string NomFor = "Frm" + cod_opcion.Trim();
+        navigationManager.NavigateTo(NomFor);
         await Task.CompletedTask;    
     }
 

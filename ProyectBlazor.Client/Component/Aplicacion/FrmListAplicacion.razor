@@ -44,7 +44,6 @@ else
     public List<AplicacionCLS> ListaApp { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        ListaApp = await sSrvApp.listarApp();
         sSrvApp.OnChange += RefrescaGrilla;
         await Task.CompletedTask;
     }
