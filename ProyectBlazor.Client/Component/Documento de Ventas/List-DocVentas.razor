@@ -1,11 +1,12 @@
 ﻿<h3><center>Relaciones de Usuarios Activos</center></h3>
 <br />
 <div class="row">
+    <InputRadioGroup @bind-Value="sAccion"> 
         <div class="col-md-3 d-flex align-items-center">
-        <input type="radio" name="name" value="@sAccion = 1" /><label style="margin: 5px">Todos los Usuarios</label>
+            <InputRadio Value="Accion.TodosUsuarios" /><label style="margin: 5px">Todos los Usuarios</label>
         </div>
         <div class="col-md-6 d-flex align-items-center">
-        <input type="radio" name="name" value="@sAccion = 2" /><label style="margin: 5px">Todos los Usuarios sin Equipos Asignados</label>
+            <InputRadio Value="Accion.SinEquiposAsignados" /><label style="margin: 5px">Todos los Usuarios sin Equipos Asignados</label>
         </div><br /><br />
         <div class="col-md-3 d-flex align-items-center">
         <button class="btn btn-success" style="width: 100px; margin-left: 60px;">
@@ -13,40 +14,42 @@
         </button>
         </div>
         <div class="col-md-5 d-flex align-items-center">
-        <input type="radio" name="RbUser" id="RbUser" value="@sAccion = 3" /><label style="margin: 5px">Por Usuario</label>
-        <input type="text" class="form-control ml-2" name="TxtBusqUser" style="width: 180px; height: 30px; margin-left: 36px;" />
+            <InputRadio Value="Accion.PorUsuario" /><label style="margin: 5px">Por Usuario</label>
+            <input type="text" class="form-control ml-2" @bind="TxtBusqUser" disabled="@(!IsPorUsuario)" style="width: 180px; height: 30px; margin-left: 36px;" />
         </div>
         <div class="col-md-7 d-flex align-items-center">
-        <input type="radio" name="RbNomUser" value="@sAccion = 3" id="RbNomUser" /><label style="margin: 5px">Por Nombre de Usuario</label>
-        <input type="text" class="form-control ml-2" name="TxtBusqNomUser" style="width: 300px; height: 30px; margin-left: 36px;" />
+            <InputRadio Value="Accion.PorNombreUsuario" /><label style="margin: 5px">Por Nombre de Usuario</label>
+            <input type="text" class="form-control ml-2" @bind="TxtBusqNomUser" disabled="@(!IsPorNombreUsuario)" style="width: 300px; height: 30px; margin-left: 36px;" />
         </div>
         <div class="col-md-5 d-flex align-items-center">
-            <input type="radio" name="RbEstacion" value="@sAccion = 3" id="RbEstacion" /><label style="margin: 5px">Por Estacion</label>
-            <input type="text" class="form-control ml-2" name="TxtBusqEstacion" style="width: 180px; height: 30px;  margin-left: 30px;" />
+            <InputRadio Value="Accion.PorEstacion" /><label style="margin: 5px">Por Estacion</label>
+            <input type="text" class="form-control ml-2" disabled="@(!IsPorEstacion)" style="width: 180px; height: 30px;  margin-left: 30px;" />
         </div>
         <div class="col-md-7 d-flex align-items-center">
-            <input type="radio" name="RbCenCost" value="@sAccion = 3" id="RbCenCost" /><label style="margin: 5px">Por Centro de Costo</label>
-            <input type="text" class="form-control ml-2" name="TxtBusqCenCost" style="width: 100px; height: 30px; margin-left: 57px;" />
+            <InputRadio Value="Accion.PorCentroCosto" /><label style="margin: 5px">Por Centro de Costo</label>
+            <input type="text" class="form-control ml-2" disabled="@(!IsPorCentroCosto)" style="width: 100px; height: 30px; margin-left: 57px;" />
         </div>
         <div class="col-md-5 d-flex align-items-center">
-            <input type="radio" name="RbTraba" value="@sAccion = 3" id="RbTraba" /><label style="margin: 5px">Por Trabajador</label>
-            <input type="text" maxlength="3" class="form-control" name="TxtCodFabrica" style="width: 60px; height: 30px; margin-left: 15px;" />
-            <input type="text" maxlength="1" class="form-control" name="TxtTipTraba" style="width: 40px; height: 30px; margin-left: 5px;" />
-            <input type="text" maxlength="4" class="form-control" name="TxtCodTraba" style="width: 70px; height: 30px; margin-left: 5px;" />
+            <InputRadio Value="Accion.PorTrabajador" /><label style="margin: 5px">Por Trabajador</label>
+            <input type="text" maxlength="3" class="form-control" disabled="@(!IsPorTrabajador)" style="width: 60px; height: 30px; margin-left: 15px;" />
+            <input type="text" maxlength="1" class="form-control" disabled="@(!IsPorTrabajador)" style="width: 40px; height: 30px; margin-left: 5px;" />
+            <input type="text" maxlength="4" class="form-control" disabled="@(!IsPorTrabajador)" style="width: 70px; height: 30px; margin-left: 5px;" />
         </div>
         <div class="col-md-7 d-flex align-items-center">
-            <input type="radio" name="RbDepaAr" value="@sAccion = 3" id="RbDepaAr" /><label style="margin: 5px">Por Departanmento y Area</label>
-            <input type="text" class="form-control" name="TxtCodDepAr" value="" style="width: 100px; height: 30px; margin-left: 15px;" />
-            <input type="text" class="form-control" name="TxtDesDepAr" value="" style="width: 195px; height: 30px; margin-left: 5px;" />
+        <InputRadio Value="Accion.PorDepartamentoArea" /><label style="margin: 5px">Por Departanmento y Area</label>
+            <input type="text" class="form-control" disabled="@(!IsPorDepartamentoArea)" style="width: 100px; height: 30px; margin-left: 15px;" />
+            <input type="text" class="form-control" disabled="@(!IsPorDepartamentoArea)" style="width: 195px; height: 30px; margin-left: 5px;" />
         </div>
         <div class="col-md-5 d-flex align-items-center">
-            <input type="radio" name="RbUserWin" value="@sAccion = 3" id="RbUserWin" /><label style="margin: 5px; width: 115px; display: inline-block;">Por Usuario de Windows</label>
-            <input type="text" class="form-control ml-2" name="TxtUserWin" style="width: 180px; height: 30px; margin-left: 5px;" />
+        <InputRadio Value="Accion.PorUsuarioWindows" /><label style="margin: 5px; width: 115px; display: inline-block;">Por Usuario de Windows</label>
+            <input type="text" class="form-control ml-2" disabled="@(!IsPorUsuarioWindows)" style="width: 180px; height: 30px; margin-left: 5px;" />
         </div>
         <div class="col-md-7 d-flex align-items-center">
-            <input type="text" class="form-control" name="TxtCodArea" style="width: 100px; height: 30px; margin-left: 230px;" />
-            <input type="text" class="form-control" name="TxtDesArea" style="width: 195px; height: 30px; margin-left: 5px;" />
+            <input type="text" class="form-control" disabled="@(!IsPorDepartamentoArea)" style="width: 100px; height: 30px; margin-left: 230px;" />
+            <input type="text" class="form-control" disabled="@(!IsPorDepartamentoArea)" style="width: 195px; height: 30px; margin-left: 5px;" />
         </div>
+        </InputRadioGroup>
+
 </div><br />
     <table class="table">
         <thead>
@@ -74,7 +77,54 @@
     </table>
 @code {
     public List<Seg_UserCLS> ListSeg_User { get; set; }
-    public string sAccion { get; set; }
+    private Accion sAccion = Accion.TodosUsuarios;
+    public enum Accion
+    {
+        TodosUsuarios = 1, SinEquiposAsignados, PorUsuario, PorNombreUsuario, PorEstacion, 
+        PorCentroCosto, PorTrabajador, PorDepartamentoArea, PorUsuarioWindows
+    }
+    public enum Opciones
+    {
+        Opcion1,
+        Opcion2,
+        Opcion3
+    }
+
+    private string TxtBusqUser { get; set; } = string.Empty;
+    private string TxtBusqNomUser { get; set; } = string.Empty;
+    private string TxtBusqEsta { get; set; } = string.Empty;
+    private string TxtBusqCenCost { get; set; } = string.Empty;
+    private string TxtBusqTra { get; set; } = string.Empty;
+    private string TxtBusqDepArea { get; set; } = string.Empty;
+    private string TxtBusqUserWin { get; set; } = string.Empty;
+
+    private bool IsPorUsuario => sAccion == Accion.PorUsuario;
+    private bool IsPorNombreUsuario => sAccion == Accion.PorNombreUsuario;
+    private bool IsPorEstacion => sAccion == Accion.PorEstacion;
+    private bool IsPorCentroCosto => sAccion == Accion.PorCentroCosto;
+    private bool IsPorTrabajador => sAccion == Accion.PorTrabajador;
+    private bool IsPorDepartamentoArea => sAccion == Accion.PorDepartamentoArea;
+    private bool IsPorUsuarioWindows => sAccion == Accion.PorUsuarioWindows;
+
+    private void OnAccionChanged(Accion nuevaAccion)
+    {
+        if (sAccion != nuevaAccion)
+        {
+            sAccion = nuevaAccion;
+            LimpiarCampos();
+        }
+    }
+
+    private void LimpiarCampos()
+    {
+        if (!IsPorUsuario) TxtBusqUser = string.Empty;
+        if (!IsPorNombreUsuario) TxtBusqNomUser = string.Empty;
+        if (!IsPorEstacion) TxtBusqEsta = string.Empty;
+        if (!IsPorCentroCosto) TxtBusqCenCost = string.Empty;
+        if (!IsPorTrabajador) TxtBusqTra = string.Empty;
+        if (!IsPorDepartamentoArea) TxtBusqDepArea = string.Empty;
+        if (!IsPorUsuarioWindows) TxtBusqUserWin = string.Empty;
+    }
 
     protected override Task OnInitializedAsync()
     {
@@ -86,9 +136,7 @@
         await Task.CompletedTask;
     }
 
-    public async Task CargaGrilla()
-    {
-        await Task.CompletedTask;
-    }
+    
+
 
 }
